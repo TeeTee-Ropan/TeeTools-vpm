@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/32238173/README.md)
 [README.md](https://github.com/user-attachments/files/32237846/README.md)
 # TeeTools — Avatar Health Check
 
@@ -22,7 +23,7 @@ GameObject into the Target Avatar field and click Scan.
 ## Notes
 
 - No dependency on the VRChat SDK is declared, since PhysBone/PhysBone
-  Collider/VRCAvatarDescriptor checks are done via reflection — the tool
+  Collider/VRCAvatarDescriptor checks are done via reflection — the tool[README.ja.md](https://github.com/user-attachments/files/32238176/README.ja.md)
   installs and runs fine even in a project without the SDK yet, it just
   skips those specific checks and says so.
 - Thresholds (poly count, material count, texture size, etc.) are rule-of-thumb
