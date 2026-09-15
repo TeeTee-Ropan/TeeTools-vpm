@@ -43,6 +43,34 @@
     margin-bottom: 56px;
   }
 
+  .lang-toggle {
+    margin-left: auto;
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
+  }
+
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 11px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .lang-btn:hover { color: var(--text); }
+
+  .lang-btn.active {
+    background: var(--surface-2);
+    color: var(--accent);
+  }
+
   .mark {
     width: 36px;
     height: 36px;
@@ -266,79 +294,175 @@
     <header>
       <div class="mark">T</div>
       <div class="wordmark">TEETOOLS</div>
+      <div class="lang-toggle" id="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">日本語</button>
+      </div>
     </header>
 
-    <h1>VRChat avatar tools that check their own work.</h1>
-    <p class="lede">
+    <h1 data-i18n="h1">VRChat avatar tools that check their own work.</h1>
+    <p class="lede" data-i18n="lede">
       A small, growing set of Unity Editor tools for avatar creators.
       Add the repository once — every tool in the series shows up in VCC
       from then on.
     </p>
 
     <div class="cta-row">
-      <a class="add-btn" href="vcc://vpm/addRepo?url=https%3A%2F%2Fraw.githubusercontent.com%2FTeeTee-Ropan%2FTeeTools-vpm%2Fmain%2Findex.json">
+      <a class="add-btn" data-i18n="add_btn" href="vcc://vpm/addRepo?url=https%3A%2F%2Fraw.githubusercontent.com%2FTeeTee-Ropan%2FTeeTools-vpm%2Fmain%2Findex.json">
         Add to VCC
       </a>
-      <span class="requires">Opens VRChat Creator Companion directly — requires VCC to already be installed.</span>
+      <span class="requires" data-i18n="requires">Opens VRChat Creator Companion directly — requires VCC to already be installed.</span>
     </div>
 
     <details class="fallback">
-      <summary>Button not working, or don't have VCC yet?</summary>
+      <summary data-i18n="fallback_summary">Button not working, or don't have VCC yet?</summary>
       <div class="fallback-body">
         <ol>
-          <li>Open VCC → Settings → Packages → Add Repository.</li>
-          <li>Paste the URL below and confirm.</li>
+          <li data-i18n="fallback_step1">Open VCC → Settings → Packages → Add Repository.</li>
+          <li data-i18n="fallback_step2">Paste the URL below and confirm.</li>
         </ol>
         <div class="url-row">
           <div class="url-box" id="repo-url">https://raw.githubusercontent.com/TeeTee-Ropan/TeeTools-vpm/main/index.json</div>
-          <button class="copy-btn" id="copy-btn" onclick="copyUrl()">Copy</button>
+          <button class="copy-btn" id="copy-btn" data-i18n="copy_btn" onclick="copyUrl()">Copy</button>
         </div>
       </div>
     </details>
 
-    <div class="section-label">Packages in this repository</div>
+    <div class="section-label" data-i18n="section_label">Packages in this repository</div>
 
     <div class="pkg-card">
       <div class="pkg-top">
         <span class="pkg-name">Avatar Health Check</span>
         <span class="pkg-version">v1.0.0</span>
       </div>
-      <p class="pkg-desc">
+      <p class="pkg-desc" data-i18n="pkg_desc">
         Scans an avatar for common performance and upload issues — missing
         scripts, broken PhysBones, oversized textures, broken animation
         references — and explains what's actually worth fixing.
       </p>
       <div class="pkg-tags">
-        <span class="tag">Editor tool</span>
+        <span class="tag" data-i18n="tag_editor">Editor tool</span>
         <span class="tag">EN / 日本語</span>
       </div>
     </div>
 
-    <div class="more-note">
+    <div class="more-note" data-i18n="more_note">
       More TeeTools packages will appear here as they're added — you won't
       need to add anything new to VCC to get them.
     </div>
 
     <footer>
       <span>TeeTools</span>
-      <a href="https://github.com/TeeTee-Ropan/TeeTools-vpm">View on GitHub</a>
+      <a href="https://github.com/TeeTee-Ropan/TeeTools-vpm" data-i18n="footer_link">View on GitHub</a>
     </footer>
   </div>
 
   <script>
-    function copyUrl() {
-      const url = document.getElementById('repo-url').textContent;
-      navigator.clipboard.writeText(url).then(() => {
-        const btn = document.getElementById('copy-btn');
-        const original = btn.textContent;
-        btn.textContent = 'Copied';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.classList.remove('copied');
-        }, 1600);
-      });
+    var STRINGS = {
+      h1: {
+        en: "VRChat avatar tools that check their own work.",
+        ja: "自分の状態を自分でチェックする、VRChatアバター向けツール群。"
+      },
+      lede: {
+        en: "A small, growing set of Unity Editor tools for avatar creators. Add the repository once — every tool in the series shows up in VCC from then on.",
+        ja: "アバター制作者向けの、少しずつ増えていくUnityエディタ拡張ツール集です。リポジトリを一度追加するだけで、シリーズの全ツールがVCCに表示されるようになります。"
+      },
+      add_btn: { en: "Add to VCC", ja: "VCCに追加" },
+      requires: {
+        en: "Opens VRChat Creator Companion directly — requires VCC to already be installed.",
+        ja: "VRChat Creator Companion（VCC）を直接開きます。あらかじめVCCのインストールが必要です。"
+      },
+      fallback_summary: {
+        en: "Button not working, or don't have VCC yet?",
+        ja: "ボタンが動かない場合、またはVCCをまだお持ちでない場合"
+      },
+      fallback_step1: {
+        en: "Open VCC → Settings → Packages → Add Repository.",
+        ja: "VCCを開き、Settings → Packages → Add Repository と進みます。"
+      },
+      fallback_step2: {
+        en: "Paste the URL below and confirm.",
+        ja: "下のURLを貼り付けて確定してください。"
+      },
+      copy_btn: { en: "Copy", ja: "コピー" },
+      copy_btn_done: { en: "Copied", ja: "コピーしました" },
+      section_label: { en: "Packages in this repository", ja: "このリポジトリに含まれるパッケージ" },
+      pkg_desc: {
+        en: "Scans an avatar for common performance and upload issues — missing scripts, broken PhysBones, oversized textures, broken animation references — and explains what's actually worth fixing.",
+        ja: "アバターによくあるパフォーマンス・アップロードの問題（見つからないスクリプト、壊れたPhysBone、大きすぎるテクスチャ、壊れたアニメーション参照など）をスキャンし、実際に対応すべきかどうかを分かりやすく教えてくれます。"
+      },
+      tag_editor: { en: "Editor tool", ja: "エディタ拡張" },
+      more_note: {
+        en: "More TeeTools packages will appear here as they're added — you won't need to add anything new to VCC to get them.",
+        ja: "今後追加されるTeeToolsのパッケージも、ここに自動的に表示されます。VCCへの追加作業は不要です。"
+      },
+      footer_link: { en: "View on GitHub", ja: "GitHubで見る" }
+    };
+
+    function setLang(lang) {
+      var i18nEls = document.querySelectorAll('[data-i18n]');
+      for (var i = 0; i < i18nEls.length; i++) {
+        var el = i18nEls[i];
+        var key = el.getAttribute('data-i18n');
+        if (STRINGS[key] && STRINGS[key][lang]) {
+          el.textContent = STRINGS[key][lang];
+        }
+      }
+
+      var langBtns = document.querySelectorAll('.lang-btn');
+      for (var j = 0; j < langBtns.length; j++) {
+        var btn = langBtns[j];
+        var isActive = btn.getAttribute('data-lang') === lang;
+        var baseClass = 'lang-btn';
+        btn.className = isActive ? baseClass + ' active' : baseClass;
+      }
+
+      try { localStorage.setItem('teetools-lang', lang); } catch (e) {}
+      document.documentElement.lang = lang;
     }
+
+    function copyUrl() {
+      var url = document.getElementById('repo-url').textContent;
+      var activeBtn = document.querySelector('.lang-btn.active');
+      var lang = activeBtn ? activeBtn.getAttribute('data-lang') : 'en';
+      var btn = document.getElementById('copy-btn');
+
+      function showCopied() {
+        btn.textContent = STRINGS.copy_btn_done[lang];
+        btn.className = 'copy-btn copied';
+        setTimeout(function () {
+          btn.textContent = STRINGS.copy_btn[lang];
+          btn.className = 'copy-btn';
+        }, 1600);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showCopied);
+      } else {
+        // Fallback for browsers without the Clipboard API
+        var temp = document.createElement('textarea');
+        temp.value = url;
+        document.body.appendChild(temp);
+        temp.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(temp);
+        showCopied();
+      }
+    }
+
+    // Default language: a saved manual choice wins; otherwise auto-detect
+    // from the browser's language setting, so Japanese visitors see 日本語
+    // without having to find the toggle themselves.
+    (function initLang() {
+      var saved = null;
+      try { saved = localStorage.getItem('teetools-lang'); } catch (e) {}
+      if (saved === 'en' || saved === 'ja') {
+        setLang(saved);
+        return;
+      }
+      var browserLang = (navigator.language || '').toLowerCase();
+      setLang(browserLang.indexOf('ja') === 0 ? 'ja' : 'en');
+    })();
   </script>
 </body>
 </html>
