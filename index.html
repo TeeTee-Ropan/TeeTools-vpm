@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TeeTools — VRChat avatar tools</title>
+<meta property="og:title" content="TeeTools — VRChat avatar tools">
+<meta property="og:description" content="A small, growing set of Unity Editor tools for VRChat avatar creators. Add the repository once to get every tool in the series.">
+<meta property="og:image" content="https://teetee-ropan.github.io/TeeTools-vpm/banner.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://teetee-ropan.github.io/TeeTools-vpm/banner.jpg">
 <style>
   :root {
     --bg: #12141a;
@@ -43,6 +49,15 @@
     margin-bottom: 56px;
   }
 
+  .hero-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    margin-bottom: 40px;
+    border: 1px solid var(--border);
+  }
+
   .lang-toggle {
     margin-left: auto;
     display: flex;
@@ -74,15 +89,9 @@
   .mark {
     width: 36px;
     height: 36px;
-    border-radius: 9px;
-    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 17px;
-    color: #08120f;
     flex-shrink: 0;
+    object-fit: contain;
+    display: block;
   }
 
   .wordmark {
@@ -292,13 +301,15 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="mark">T</div>
+      <img class="mark" src="logo.png" alt="TeeTools logo">
       <div class="wordmark">TEETOOLS</div>
       <div class="lang-toggle" id="lang-toggle">
         <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">日本語</button>
       </div>
     </header>
+
+    <img class="hero-banner" src="banner.jpg" alt="TeeTools">
 
     <h1 data-i18n="h1">VRChat avatar tools that check their own work.</h1>
     <p class="lede" data-i18n="lede">
