@@ -1,0 +1,25 @@
+{
+  "name": "TeeTools",
+  "author": "TeeTools",
+  "url": "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/index.json",
+  "id": "dev.teetools.vpm",
+  "packages": {
+    "dev.teetools.avatarhealth": {
+      "versions": {
+        "1.0.0": {
+          "name": "dev.teetools.avatarhealth",
+          "displayName": "TeeTools - Avatar Health Check",
+          "version": "1.0.0",
+          "unity": "2019.4",
+          "description": "Scans a VRChat avatar for common performance and upload issues, with a beginner-friendly report and plain-language recommendations.",
+          "author": {
+            "name": "TeeTools"
+          },
+          "vpmDependencies": {},
+          "url": "https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/releases/download/v1.0.0/dev.teetools.avatarhealth-1.0.0.zip",
+          "zipSHA256": "fca2837db9df4167ebf8f2ee1c8882a5e73344704d3e5ba6dd59f83525b6e25d"
+        }
+      }
+    }
+  }
+}
