@@ -1,7 +1,7 @@
 {
   "name": "TeeTools",
-  "author": "TeeTools",
-  "url": "https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPO_NAME/index.json",
+  "author": "TeeTee-Ropan",
+  "url": "https://raw.githubusercontent.com/TeeTee-Ropan/TeeTools-vpm/main/index.json",
   "id": "dev.teetools.vpm",
   "packages": {
     "dev.teetools.avatarhealth": {
@@ -16,7 +16,7 @@
             "name": "TeeTools"
           },
           "vpmDependencies": {},
-          "url": "https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/releases/download/v1.0.0/dev.teetools.avatarhealth-1.0.0.zip",
+          "url": "https://github.com/TeeTee-Ropan/TeeTools-vpm/releases/download/V1.0.0/dev.teetools.avatarhealth-1.0.0.zip",
           "zipSHA256": "fca2837db9df4167ebf8f2ee1c8882a5e73344704d3e5ba6dd59f83525b6e25d"
         }
       }
