@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeeTools — VRChat avatar tools</title>
+<style>
+  :root {
+    --bg: #12141a;
+    --surface: #1a1d26;
+    --surface-2: #21252f;
+    --border: #2a2e3a;
+    --text: #edeff5;
+    --text-muted: #8d94a8;
+    --accent: #35d6c4;
+    --accent-dim: #1f7f76;
+    --red: #e0645f;
+    --yellow: #e0b24a;
+    --green: #5cc487;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+                 "Noto Sans JP", Roboto, sans-serif;
+    line-height: 1.55;
+  }
+
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 64px 24px 48px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+
+  .mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(160deg, var(--accent), var(--accent-dim));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 17px;
+    color: #08120f;
+    flex-shrink: 0;
+  }
+
+  .wordmark {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+  }
+
+  h1 {
+    font-size: 34px;
+    line-height: 1.25;
+    font-weight: 700;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin: 0 0 36px;
+    max-width: 46ch;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #08120f;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 15px 22px;
+    border-radius: 10px;
+    width: fit-content;
+    transition: transform 0.12s ease, background 0.12s ease;
+  }
+
+  .add-btn:hover {
+    background: #4fe4d3;
+    transform: translateY(-1px);
+  }
+
+  .add-btn:active {
+    transform: translateY(0);
+  }
+
+  .requires {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .requires a { color: var(--text-muted); }
+
+  .fallback {
+    margin-top: 28px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .fallback summary {
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    user-select: none;
+  }
+
+  .fallback summary:hover { color: var(--text); }
+
+  .fallback-body {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fallback-body ol {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  .url-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .url-box {
+    flex: 1;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 11px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 9px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); }
+  .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+  .section-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 48px 0 14px;
+  }
+
+  .pkg-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+
+  .pkg-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .pkg-name {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .pkg-version {
+    font-size: 12.5px;
+    color: var(--accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    flex-shrink: 0;
+  }
+
+  .pkg-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .pkg-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-size: 11.5px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .more-note {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    padding: 14px 18px;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  footer a { color: var(--text-muted); }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="mark">T</div>
+      <div class="wordmark">TEETOOLS</div>
+    </header>
+
+    <h1>VRChat avatar tools that check their own work.</h1>
+    <p class="lede">
+      A small, growing set of Unity Editor tools for avatar creators.
+      Add the repository once — every tool in the series shows up in VCC
+      from then on.
+    </p>
+
+    <div class="cta-row">
+      <a class="add-btn" href="vcc://vpm/addRepo?url=https%3A%2F%2Fraw.githubusercontent.com%2FTeeTee-Ropan%2FTeeTools-vpm%2Fmain%2Findex.json">
+        Add to VCC
+      </a>
+      <span class="requires">Opens VRChat Creator Companion directly — requires VCC to already be installed.</span>
+    </div>
+
+    <details class="fallback">
+      <summary>Button not working, or don't have VCC yet?</summary>
+      <div class="fallback-body">
+        <ol>
+          <li>Open VCC → Settings → Packages → Add Repository.</li>
+          <li>Paste the URL below and confirm.</li>
+        </ol>
+        <div class="url-row">
+          <div class="url-box" id="repo-url">https://raw.githubusercontent.com/TeeTee-Ropan/TeeTools-vpm/main/index.json</div>
+          <button class="copy-btn" id="copy-btn" onclick="copyUrl()">Copy</button>
+        </div>
+      </div>
+    </details>
+
+    <div class="section-label">Packages in this repository</div>
+
+    <div class="pkg-card">
+      <div class="pkg-top">
+        <span class="pkg-name">Avatar Health Check</span>
+        <span class="pkg-version">v1.0.0</span>
+      </div>
+      <p class="pkg-desc">
+        Scans an avatar for common performance and upload issues — missing
+        scripts, broken PhysBones, oversized textures, broken animation
+        references — and explains what's actually worth fixing.
+      </p>
+      <div class="pkg-tags">
+        <span class="tag">Editor tool</span>
+        <span class="tag">EN / 日本語</span>
+      </div>
+    </div>
+
+    <div class="more-note">
+      More TeeTools packages will appear here as they're added — you won't
+      need to add anything new to VCC to get them.
+    </div>
+
+    <footer>
+      <span>TeeTools</span>
+      <a href="https://github.com/TeeTee-Ropan/TeeTools-vpm">View on GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    function copyUrl() {
+      const url = document.getElementById('repo-url').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1600);
+      });
+    }
+  </script>
+</body>
+</html>
