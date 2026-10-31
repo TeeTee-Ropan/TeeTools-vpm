@@ -61,6 +61,21 @@
           "vpmDependencies": {},
           "url": "https://github.com/TeeTee-Ropan/TeeTools-vpm/releases/download/V0.1.2/dev.teetools.playtester-0.1.2.zip",
           "zipSHA256": "41131326e2766c366da1091006c7566f8564c9ddc441af16e7d5b1f7d4ba7cdf"
+        },
+        "0.2.0": {
+          "name": "dev.teetools.playtester",
+          "displayName": "TeeTools - Play Tester",
+          "version": "0.2.0",
+          "unity": "2019.4",
+          "description": "Walk, run, jump, crouch and prone your avatar inside Unity Play Mode with VRChat-style locomotion parameters, plus an optional personal mirror. Runs on top of Lyuma's Av3Emulator, which is installed automatically. English / 日本語.",
+          "author": {
+            "name": "TeeTools"
+          },
+          "vpmDependencies": {
+            "lyuma.av3emulator": ">=3.4.0"
+          },
+          "url": "https://github.com/TeeTee-Ropan/TeeTools-vpm/releases/download/V0.2.0/dev.teetools.playtester-0.2.0.zip",
+          "zipSHA256": "40f526f40fb3371a99c21881e1d59c2b26390ea81dc20c17d1533538d105ed33"
         }
       }
     }
